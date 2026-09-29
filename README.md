@@ -79,7 +79,14 @@ python main.py market_inputs.csv --ready-threshold-ms 100
 
 This estimate was sourced by AI from the retained prompt logs across the `tick_consolidator` and `DerivedValuePublisher` workspaces, excluding gaps longer than 20 minutes.
 
+## Time Log Manual
 
+| Area | Time | Notes |
+| --- | ---: | --- |
+| Manual Reviews | ~120 min | over several days, review of AI generated logic and review overall implementation |
+| Manual design thinking | ~60 min | Authoring Brain-dump notes prior to starting in Google docs -> moved to BRAINDUMP.md |
+| Manual review and refactor | ~30 min | Post-implementation review of generated code |
+| Misc | ~20 min | Env validation, install and run instructions, git publish  |
 
 
 ## Design Choices AI
@@ -88,7 +95,6 @@ This estimate was sourced by AI from the retained prompt logs across the `tick_c
 - `TickConsumer` owns instrument state, current time, the dirty queue, and publication timing.
 - `OnConsumerReady` is a control point for publishing events rather than a method that returns an event to its caller.
 - The event consumer is injected into `TickConsumer`, allowing the CSV writer to be replaced by another implementation.
-- `ready_entries` is a lazy generator that drives message processing and readiness checks.
 - `CsvEntryWriter` owns CSV header and row serialization and consumes individual published entries.
 
 ## Human choices
@@ -144,4 +150,4 @@ AI assistance was used to help inspect the code, implement focused refactors, ge
 
 1. it can be a lot of work to express in text the intent, I have a bias to try to cover my intent accurately
 2. it does do more than I ask for - test cases especially
-3. 
+
